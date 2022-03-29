@@ -38,7 +38,7 @@
                 v-on="on"
                 style="cursor:pointer;"
               >
-                {{ $t('navbar.our_rooms') }}
+                {{ link_locales.link_rooms }}
               </p>
               <i v-bind="attrs"
                 v-on="on" :class="[ position > 0 || route !== 3 ? 'down-arrow-scroll' : 'down-arrow' ]"></i>      
@@ -49,7 +49,7 @@
           <v-list dense>
             <v-list-item dense nuxt>
               <NuxtLink :to="localePath('/rooms')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="$nuxt.$route.name.includes('rooms_') ? 'active-link-secondary' : ''">
-              <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ $t('navbar.rooms.rooms') }}</v-list-item-title>
+              <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ link_locales.sublink_rooms }}</v-list-item-title>
               </NuxtLink>
             </v-list-item>
             <v-list-item
@@ -66,10 +66,10 @@
 
         <!-- <NuxtLink to="/rooms" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]">Our Rooms</NuxtLink> -->
 
-        <NuxtLink :to="localePath('/about')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('about') ? 'active-link-secondary': ''">{{ $t('navbar.about') }}</NuxtLink>
-        <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ $t('navbar.gallery') }}</NuxtLink>
-        <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ $t('navbar.explore') }}</NuxtLink>
-        <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ $t('navbar.contact') }}</NuxtLink>
+        <NuxtLink :to="localePath('/about')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('about') ? 'active-link-secondary': ''">{{ link_locales.link_about }}</NuxtLink>
+        <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ link_locales.link_gallery }}</NuxtLink>
+        <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ link_locales.link_explore }}</NuxtLink>
+        <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ link_locales.link_contact }}</NuxtLink>
       </v-col>
 
       <v-col cols="2" xl="2" lg="4" md="1" sm="1"></v-col>
