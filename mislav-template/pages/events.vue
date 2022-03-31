@@ -31,7 +31,6 @@
         :title="event.title"
         :date="event.date"
         :body="event.body"
-        class="gallery-item"
       />
     </v-container>
   </div>
@@ -66,11 +65,6 @@ export default {
 <style lang="scss" scoped>
 .block-1-events{
   min-height: 30vh;
-}
-.gallery-item:hover{
-  transform: all 0.3s ease;
-  transform: translateY(-1%);
-  box-shadow: 0px 15px 10px -15px rgb(180, 180, 180);
 }
 .grid-container{
   max-width: 60vw;

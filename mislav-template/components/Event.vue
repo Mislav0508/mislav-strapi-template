@@ -128,6 +128,14 @@ h3{
 // PLUS SIGN
 .img-container{
   @include img-container;
+  &:hover{
+    filter: brightness(90%);
+  }
+}
+.img-container:hover{
+  transform: all 0.2s ease;
+  transform: translateY(-1.5%);
+  box-shadow: 0px 15px 10px -15px rgb(180, 180, 180);
 }
 .add {
   @include add;  
