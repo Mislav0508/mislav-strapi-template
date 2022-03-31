@@ -34,6 +34,35 @@
 
     </div>
 
+    <v-dialog
+      v-model="dialog"
+      hide-overlay
+      :width="width"
+    >
+      <v-card class="v-card">
+        <v-card-title class="text-h5 grey lighten-2">
+          {{ title }}
+        </v-card-title>
+
+        <v-card-text class="pt-5">
+          {{ body }}
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            X
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 
 </template>
@@ -47,17 +76,25 @@ export default {
     index: Number,
     tags: Array,
     title: String,
-    date: String
+    date: String,
+    body: String
    },
   data() {
     return {
-      
+      dialog: false,
+      width: "50vw"
     }
   },
   methods: {
     handleClick: function () {
+      this.dialog = true
       this.$emit('modal-true', true)
       this.$emit('current-index', this.index)
+    }
+  },
+  mounted() {
+    if (screen.width <= 960) {
+      this.width = "90vw"
     }
   }
 }
@@ -119,5 +156,20 @@ h3{
  border-left: 2px solid;
  transition: all 0.35s ease;
 }
+// v-dialog
+.v-card{
+  text-align: center;
+}
+// .v-dialog{
+//   width: 0;
+// }
+// .v-dialog > *{
+//   width:50vw;  
+// }
+// @media only screen and (max-width: 960px) {
+//   .v-dialog > *{
+//   width:90vw;
+// }
+// }
 
 </style>

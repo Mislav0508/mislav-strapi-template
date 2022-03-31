@@ -36,7 +36,7 @@
                   <v-list-item-title
                     class="link-sidebar"
                     style="font-size: 15px"
-                    >‣ {{ $t("navbar.rooms.rooms") }}</v-list-item-title
+                    >‣ {{ link_locales.sublink_rooms }}</v-list-item-title
                   >
                 </NuxtLink>
                 <NuxtLink
