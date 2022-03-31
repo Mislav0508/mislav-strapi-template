@@ -1,13 +1,36 @@
 <template>
   <div>
-    <v-row class="py-15 my-15"></v-row>
+    <v-container class="block-1-events d-flex align-center pt-lg-15 mt-lg-10 mt-sm-7" >
+
+      <v-col cols="0" xl="2" lg="2" md="2" sm="2"></v-col>
+
+      <v-col cols="12" xl="8" lg="8" md="8" sm="8" class="mt-15 mt-sm-0 pr-10 pr-sm-0 text-center">
+        <h2 data-aos="fade-up" 
+        data-aos-duration="1000"
+        data-aos-easing="ease-out"
+        data-aos-delay="500"
+        data-aos-once="true">All Events</h2>
+        <v-text-field
+        data-aos="fade-up" 
+        data-aos-duration="1000"
+        data-aos-easing="ease-out"
+        data-aos-delay="1000"
+        data-aos-once="true"
+        label="Search"
+        v-model="search"
+        ></v-text-field>
+      </v-col> 
+
+      <v-col cols="0" xl="2" lg="2" md="2" sm="2"></v-col>     
+
+    </v-container>
     <v-container class="grid-container">
-      <Event v-for="(img, i) in images" :key="i"
-        :image="images[i]"
-        :tags="tags[i]"
-        :title="titles[i]"
-        :date="dates[i]"
-        :body="bodies[i]"
+      <Event v-for="(event, i) in filteredEvents" :key="i"
+        :image="'http://localhost:1338'+event.image_url"
+        :tags="event.tags.split(', ')"
+        :title="event.title"
+        :date="event.date"
+        :body="event.body"
         class="gallery-item"
       />
     </v-container>
@@ -22,34 +45,28 @@ export default {
   mixins: [ fetchEventsLocales ],
   data() {
     return {
-      images: [],
-      tags: [],
-      titles: [],
-      dates: [],
-      publishedAt: [],
-      updatedAt: [],
-      bodies: []
+      search: '',
+      events: []
+    }
+  },
+  computed: {
+    filteredEvents: function() {
+      return this.events.filter(obj => {
+          return obj.title.toLowerCase().includes(this.search.toLowerCase())
+        })
     }
   },
   async mounted() {
-    this.route = $nuxt.$route.path.length
-
     // FETCHING LOCALES FROM STRAPI
-    let result = await this.fetchEventsLocales($nuxt.$route.path.substring(1,3))
-    console.log("result",result);
-    this.images = result.img_url
-    this.tags = result.tags
-    this.titles = result.titles
-    this.dates = result.dates
-    this.publishedAt = result.publishedAt
-    this.updatedAt = result.updatedAt
-    this.bodies = result.bodies
-
+    this.events = await this.fetchEventsLocales($nuxt.$route.path.substring(1,3))
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.block-1-events{
+  min-height: 30vh;
+}
 .gallery-item:hover{
   transform: all 0.3s ease;
   transform: translateY(-1%);
