@@ -14,7 +14,7 @@
       </v-row>
 
       <v-row class="d-flex flex-column">
-        <v-row class="d-flex justify-space-around pt-7 pb-5">
+        <v-row class="d-flex justify-space-around pt-9 pb-5">
           <v-chip v-for="(tag,i) in tags" :key="i" outlined
           >
             {{ tag }}

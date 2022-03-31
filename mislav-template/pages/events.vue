@@ -4,20 +4,22 @@
 
       <v-col cols="0" xl="2" lg="2" md="2" sm="2"></v-col>
 
-      <v-col cols="12" xl="8" lg="8" md="8" sm="8" class="mt-15 mt-sm-0 pr-10 pr-sm-0 text-center">
-        <h2 data-aos="fade-up" 
+      <v-col cols="12" xl="8" lg="8" md="8" sm="8" class="mt-15 mt-sm-0 pr-10 pr-sm-0 text-center d-flex flex-column justify-center align-center">
+        <h2 data-aos="fade-in" 
         data-aos-duration="1000"
         data-aos-easing="ease-out"
         data-aos-delay="500"
         data-aos-once="true">All Events</h2>
         <v-text-field
-        data-aos="fade-up" 
+        data-aos="fade-right" 
         data-aos-duration="1000"
         data-aos-easing="ease-out"
         data-aos-delay="1000"
         data-aos-once="true"
         label="Search"
         v-model="search"
+        prepend-icon="mdi-magnify"
+        class="search-field mt-5"
         ></v-text-field>
       </v-col> 
 
@@ -25,7 +27,7 @@
 
     </v-container>
     <v-container class="grid-container">
-      <Event v-for="(event, i) in filteredEvents" :key="i"
+      <Event v-for="(event, i) in filteredTitles " :key="i"
         :image="'http://localhost:1338'+event.image_url"
         :tags="event.tags.split(', ')"
         :title="event.title"
@@ -37,11 +39,12 @@
 </template>
 
 <script>
+import aosMixin from "../mixins/aos"
 import Event from "../components/Event.vue"
 import fetchEventsLocales from "../mixins/fetchEventsLocales"
 export default {
   components: { Event },
-  mixins: [ fetchEventsLocales ],
+  mixins: [ aosMixin, fetchEventsLocales ],
   data() {
     return {
       search: '',
@@ -49,15 +52,17 @@ export default {
     }
   },
   computed: {
-    filteredEvents: function() {
+    filteredTitles : function() {
       return this.events.filter(obj => {
-          return obj.title.toLowerCase().includes(this.search.toLowerCase())
-        })
+          return obj.title.toLowerCase().includes(this.search.toLowerCase()) 
+                 
+      })
     }
   },
   async mounted() {
     // FETCHING LOCALES FROM STRAPI
     this.events = await this.fetchEventsLocales($nuxt.$route.path.substring(1,3))
+    console.log("events",this.events);
   }
 }
 </script>
@@ -84,5 +89,8 @@ export default {
     grid-template-columns: auto;
     max-width: 90vw;
   }
+}
+.search-field{
+  width: 11rem;
 }
 </style>

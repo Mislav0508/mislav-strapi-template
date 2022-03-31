@@ -53,8 +53,8 @@
           </div>
 
           <div class="d-flex justify-center align-start flex-column">
-            <NuxtLink :to="localePath('/about')" class="link-sidebar">
-            {{ link_locales.link_about }}</NuxtLink>
+            <NuxtLink :to="localePath('/events')" class="link-sidebar">
+            {{ link_locales.link_events }}</NuxtLink>
 
             <NuxtLink :to="localePath('/gallery')" class="link-sidebar">{{ link_locales.link_gallery }}</NuxtLink>
 

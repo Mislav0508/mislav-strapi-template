@@ -66,7 +66,7 @@
 
         <!-- <NuxtLink to="/rooms" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]">Our Rooms</NuxtLink> -->
 
-        <NuxtLink :to="localePath('/about')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('about') ? 'active-link-secondary': ''">{{ link_locales.link_about }}</NuxtLink>
+        <NuxtLink :to="localePath('/events')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('events') ? 'active-link-secondary': ''">{{ link_locales.link_events }}</NuxtLink>
         <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ link_locales.link_gallery }}</NuxtLink>
         <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ link_locales.link_explore }}</NuxtLink>
         <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ link_locales.link_contact }}</NuxtLink>

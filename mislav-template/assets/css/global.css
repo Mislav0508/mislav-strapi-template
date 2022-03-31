@@ -10,3 +10,13 @@ body {
   word-wrap: break-word;  
 }
 
+/* page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+}
+

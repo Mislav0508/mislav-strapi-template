@@ -13,6 +13,13 @@ export default {
     }
   },
 
+  loading: {
+    color: '#4080ff',
+    failedColor: 'red',
+    height: '2px',
+    continuous: true
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - mislav-template',

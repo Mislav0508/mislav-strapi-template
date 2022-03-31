@@ -42,13 +42,6 @@ export default {
       sidebar: false
     }
   },
-  mounted() {
-    // console.log("initial route", this.$route.path);
-    // console.log("navbars",this.navbars.data);
-    // console.log("homepageSliders",this.homepageSliders.data);
-    // console.log("img url",`${'http://localhost:1338/uploads/'+this.events.data[2].attributes.image.data.attributes.name}`);
-    // <img :src="`${'http://localhost:1338'+events.data[8].attributes.url}`"  alt="cover image">
-  },
   beforeMount  () {
     window.addEventListener('scroll', this.checkPosition);
   },
@@ -59,9 +52,12 @@ export default {
     sidebarHandler(val) {
       this.sidebar = val
       if (!val) {
-        document.body.style.position = '';
-        document.body.style.top = '';
+        const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
       } else {
+        document.body.style.padding = '0px 15px 0px 0px';
         document.body.style.position = 'fixed';
         document.body.style.top = `-${window.scrollY}px`;
       }
