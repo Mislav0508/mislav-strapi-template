@@ -1,6 +1,7 @@
 export const state = () => ({
   token: null,
   user: null,
+  path: 'en'
 })
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
   },
   setUser(state, user) {
     state.user = user
+  },
+  setPath(state, path) {
+    state.path = path
   }
 }
 
@@ -18,6 +22,9 @@ export const actions = {
   },
   setUser({ commit }, user) {
     commit('setUser', user)
+  },
+  setPath({ commit }, path) {
+    commit('setPath', path)
   }
 }
 

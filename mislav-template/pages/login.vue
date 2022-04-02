@@ -6,7 +6,8 @@
                <v-flex xs12 sm8 md4>
                   <v-card class="elevation-12">
                      <v-toolbar dark color="primary">
-                        <v-toolbar-title>{{ title }}</v-toolbar-title>
+                        <v-toolbar-title v-if="!this.$store.state.token">{{ title }}</v-toolbar-title>
+                        <v-toolbar-title v-else>{{ this.$store.state.user.username }}</v-toolbar-title>
                      </v-toolbar>
                      <v-card-text>
                         <v-form>
@@ -30,12 +31,12 @@
                      </v-card-text>
                      <v-card-actions>
                         <v-spacer></v-spacer>
-                        <NuxtLink :to="localePath('/login')" @click.native="Login()">
+                        <NuxtLink v-if="!this.$store.state.token" :to="localePath('/login')" @click.native="Login()">
                            <v-btn color="primary" 
                            :disabled="!password || !email"
                           >{{ title }}</v-btn>
                         </NuxtLink>
-                        <NuxtLink :to="localePath('/login')" @click.native="Logout()">
+                        <NuxtLink v-else :to="localePath('/login')" @click.native="Logout()">
                            <v-btn color="primary" 
                           >Logout</v-btn>
                         </NuxtLink>
@@ -100,15 +101,12 @@ export default {
         // retrieving the cookie
         // const cookieRes = this.$cookies.get('userData')
 
-
         this.$store.dispatch('setToken', jwt)
         this.$store.dispatch('setUser', user) 
       } catch (error) {
         this.error = error.response.data.error.message
         this.snackbar = true        
       }
-
-
     },
     async Logout() {
       this.$cookies.remove('jwt')
@@ -117,8 +115,6 @@ export default {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
     }
-  },
-  mounted() {
   }
 }
 </script>

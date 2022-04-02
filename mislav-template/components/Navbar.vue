@@ -132,7 +132,7 @@ export default {
       this.$emit("sidebar-navbar", this.sidebar)
 
       // FETCHING LOCALES FROM STRAPI
-      let navbar_locales = await this.fetchNavbarLocales($nuxt.$route.path.substring(1,3))
+      let navbar_locales = await this.fetchNavbarLocales(this.$store.state.path)
       this.link_locales = navbar_locales.links
       this.rooms = navbar_locales.sublinks.slice(1)
     },
@@ -144,7 +144,7 @@ export default {
     this.route = $nuxt.$route.path.length
 
     // FETCHING LOCALES FROM STRAPI
-    let navbar_locales = await this.fetchNavbarLocales($nuxt.$route.path.substring(1,3))
+    let navbar_locales = await this.fetchNavbarLocales(this.$store.state.path)
     this.link_locales = navbar_locales.links
     this.rooms = navbar_locales.sublinks.slice(1)
 

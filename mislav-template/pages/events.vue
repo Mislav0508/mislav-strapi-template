@@ -60,13 +60,9 @@ export default {
       })
     }
   },
-  beforeMount() {
-    console.log("$nuxt.$route.path",$nuxt.$route.path.substring(1,3));
-  },
   async mounted() {
-    // FETCHING LOCALES FROM STRAPI
-    
-    this.events = await this.fetchEventsLocales($nuxt.$route.path.substring(1,3))
+    // FETCHING LOCALES FROM STRAPI    
+    this.events = await this.fetchEventsLocales(this.$store.state.path)
     console.log("events",this.events);
   }
 }

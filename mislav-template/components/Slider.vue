@@ -70,7 +70,7 @@ export default {
   watch: {
     async $route (to, from) {
       // FETCHING LOCALES FROM STRAPI
-      let slider_locales = await this.fetchSliderLocales($nuxt.$route.path.substring(1,3))
+      let slider_locales = await this.fetchSliderLocales(this.$store.state.path)
       let slides = slider_locales.map(x => x.attributes)
       slides.forEach(slide => {
         this.titles.push(slide['slide_title'])
@@ -101,7 +101,7 @@ export default {
   },
   async mounted() {
     // FETCHING LOCALES FROM STRAPI
-    let slider_locales = await this.fetchSliderLocales($nuxt.$route.path.substring(1,3))
+    let slider_locales = await this.fetchSliderLocales(this.$store.state.path)
     let slides = slider_locales.map(x => x.attributes)
     slides.forEach(slide => {
       this.titles.push(slide['slide_title'])
