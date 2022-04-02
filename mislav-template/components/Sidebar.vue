@@ -107,6 +107,11 @@ export default {
   async mounted() {
     // FETCHING LOCALES FROM STRAPI
       let navbar_locales = await this.fetchNavbarLocales($nuxt.$route.path.substring(1,3))
+      // if (this.link_locales.length > 0) {
+      //   console.log("this.link_locales",this.link_locales);
+      // } else {
+      //   console.log("no link_locales",this.link_locales);
+      // }
       this.link_locales = navbar_locales.links
       this.rooms = navbar_locales.sublinks.slice(1)
   },

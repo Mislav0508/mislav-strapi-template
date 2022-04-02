@@ -7,18 +7,18 @@ export default {
 
   generate: { fallback: true },
 
+  server: {
+    port: 8000
+  },
+
   vue: {
     config: {
       productionTip: true
     }
   },
 
-  loading: {
-    color: '#4080ff',
-    failedColor: 'red',
-    height: '2px',
-    continuous: true
-  },
+  // progress bar on route switch
+  loading: false,
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -50,6 +50,7 @@ export default {
   plugins: [
     '@/assets/css/global.css',
     { src: './plugins/vue-carousel.js', mode: 'client' },
+    { src: './plugins/vue-progress-path.js', mode: 'client' },
     { src: './plugins/persistedState.client.js', mode: 'client' }
   ],
 
@@ -77,6 +78,7 @@ export default {
     ['nuxt-gmaps', { key: process.env.MAPS_EMBED_API }],
     '@nuxtjs/i18n',
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   
   ],
 

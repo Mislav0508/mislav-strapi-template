@@ -1,0 +1,128 @@
+<template>
+  <v-app>
+      <v-main>
+         <v-container fluid fill-height>
+            <v-layout align-center justify-center>
+               <v-flex xs12 sm8 md4>
+                  <v-card class="elevation-12">
+                     <v-toolbar dark color="primary">
+                        <v-toolbar-title>{{ title }}</v-toolbar-title>
+                     </v-toolbar>
+                     <v-card-text>
+                        <v-form>
+                           <v-text-field
+                              :prepend-icon="icons.mdiAccount"
+                              name="Email"
+                              label="Email"
+                              type="email"
+                              :rules="emailRules"
+                              v-model="email"
+                           ></v-text-field>
+                           <v-text-field
+                              :prepend-icon="icons.mdiKey"
+                              id="password"
+                              name="password"
+                              label="Password"
+                              type="password"
+                              v-model="password"
+                           ></v-text-field>
+                        </v-form>
+                     </v-card-text>
+                     <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <NuxtLink :to="localePath('/login')" @click.native="Login()">
+                           <v-btn color="primary" 
+                           :disabled="!password || !email"
+                          >{{ title }}</v-btn>
+                        </NuxtLink>
+                        <NuxtLink :to="localePath('/login')" @click.native="Logout()">
+                           <v-btn color="primary" 
+                          >Logout</v-btn>
+                        </NuxtLink>
+                        <v-snackbar v-model="snackbar">
+                          {{ error }}
+                          <template v-slot:action="{ attrs }">
+                            <v-btn
+                              color="pink"
+                              text
+                              v-bind="attrs"
+                              @click="snackbar = false"
+                            >
+                              Close
+                            </v-btn>
+                          </template>
+                        </v-snackbar>
+                     </v-card-actions>
+                  </v-card>
+               </v-flex>
+            </v-layout>
+         </v-container>
+      </v-main>
+   </v-app>
+</template>
+
+<script>
+import { mdiAccount , mdiKey  } from '@mdi/js'
+export default {
+  data() {
+    return {
+      title: 'Login',
+      icons: {
+         mdiAccount,
+         mdiKey  
+      },
+      email: 'mislav0508@hotmail.com',
+      password: 'Mislav@05080639',
+      emailRules: [ 
+      v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+      ],
+      error: '',
+      snackbar: false,
+    }
+  },
+  methods: {
+    async Login() {    
+      try {
+        let res = await this.$axios.$post("http://localhost:1338/api/auth/local", {
+        identifier: this.email,
+        password: this.password
+        })
+        console.log("res",res);
+        const { jwt, user } = res
+        this.$cookies.set('jwt', jwt, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7
+        })
+        this.$cookies.set('userData', user, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7
+        })
+        // retrieving the cookie
+        // const cookieRes = this.$cookies.get('userData')
+
+
+        this.$store.dispatch('setToken', jwt)
+        this.$store.dispatch('setUser', user) 
+      } catch (error) {
+        this.error = error.response.data.error.message
+        this.snackbar = true        
+      }
+
+
+    },
+    async Logout() {
+      this.$cookies.remove('jwt')
+      this.$cookies.remove('userData')
+
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+    }
+  },
+  mounted() {
+  }
+}
+</script>
+
+<style>
+
+</style>

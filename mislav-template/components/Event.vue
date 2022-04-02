@@ -2,7 +2,8 @@
 
   <v-container @click="handleClick" data-aos="fade-up" 
           data-aos-duration="500"
-          data-aos-easing="ease-out"
+          data-aos-delay="500"
+          data-aos-easing="ease-in"
           data-aos-once="true">
 
     <div class="d-flex align-stretch justify-center flex-column text-center ">

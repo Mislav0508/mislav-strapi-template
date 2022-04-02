@@ -1,3 +1,3 @@
 export default function ({ store, redirect }) {
-  if (!store.getters["isLoggedIn"]) return redirect("/login")
+  if (store.getters["getToken"] == null) return redirect("/login")
 }

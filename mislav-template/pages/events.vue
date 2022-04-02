@@ -45,6 +45,7 @@ import fetchEventsLocales from "../mixins/fetchEventsLocales"
 export default {
   components: { Event },
   mixins: [ aosMixin, fetchEventsLocales ],
+  middleware: "auth",
   data() {
     return {
       search: '',
@@ -59,8 +60,12 @@ export default {
       })
     }
   },
+  beforeMount() {
+    console.log("$nuxt.$route.path",$nuxt.$route.path.substring(1,3));
+  },
   async mounted() {
     // FETCHING LOCALES FROM STRAPI
+    
     this.events = await this.fetchEventsLocales($nuxt.$route.path.substring(1,3))
     console.log("events",this.events);
   }
