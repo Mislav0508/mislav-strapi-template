@@ -151,11 +151,30 @@
 
           <v-alert
           v-if="successAlert"
-          class="grid-alert"
+          class="grid-alert my-5"
           type="success"
-          >Your message has been sent!</v-alert>
+          dense
+          >Event created!</v-alert>
 
         </v-form>
+
+        <v-row class="d-flex align-center justify-center flex-column my-5 px-4">
+          <h3 class="py-5">Delete an event.</h3>
+          <v-select
+            :items="event_ids"
+            v-model="delete_id"
+            label="Select event ID"
+            dense
+            class="py-5"
+          ></v-select>
+          <v-btn large color="error" type="submit" width="100%" :disabled="!delete_id" class="grid-submit-btn mt-5" @click="deleteEvent">Delete Event</v-btn>
+        </v-row>
+        <v-alert
+          v-if="deleteAlert"
+          class="my-5"
+          type="success"
+          dense
+          >Event deleted!</v-alert>
       </v-col>
 
     </v-container>
@@ -185,7 +204,9 @@ export default {
       menu: false,
       successAlert: false,
       error: '',
-      event_id: ''
+      event_ids: [],
+      delete_id: null,
+      deleteAlert: false
     }
   },
   methods: {
@@ -214,6 +235,10 @@ export default {
           "body": `${this.body}`,
         }
         })
+        this.successAlert = true
+        setTimeout(() => {
+          this.successAlert = false
+        }, 3500)
 
         console.log("res",res);
       } catch (error) {
@@ -223,15 +248,12 @@ export default {
     },
     async deleteEvent() {
       try {
-        let res = await this.$axios.$delete("http://localhost:1338/api/events", {
-          headers: {
-            'Authorization': `Bearer ${jwt}`,
-            'Accept': '*/*',
-            'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Connection': 'keep-alive'
-          }
-        })
+        let res = await this.$axios.$delete(`http://localhost:1338/api/events/${this.delete_id}`)
+        this.deleteAlert = true
+        setTimeout(() => {
+          this.deleteAlert = false
+        }, 3500)
+        this.delete_id = null
 
         console.log("res",res);
       } catch (error) {
@@ -250,7 +272,10 @@ export default {
   },
   async mounted() {
     // FETCHING LOCALES FROM STRAPI    
-    this.events = await this.fetchEventsLocales(this.$store.state.path)
+    const { attributes, ids } = await this.fetchEventsLocales(this.$store.state.path)
+    this.events = attributes
+    this.event_ids = ids
+
   }
 }
 </script>

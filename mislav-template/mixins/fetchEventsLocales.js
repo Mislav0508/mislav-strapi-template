@@ -11,8 +11,8 @@ export default {
         let {data} = response.data
         let attributes = data.map(x => x.attributes)
 
-        // let ids = []
-        // data.forEach((x,i) => ids.push(x.id))
+        let ids = []
+        data.forEach((x,i) => ids.push(x.id))
 
         // let dates = attributes.map(x => x.date)
 
@@ -24,7 +24,7 @@ export default {
 
         // console.log("attributes",attributes);
 
-        return attributes
+        return {attributes, ids}
       } catch (error) {
         this.error = error;
       } 
