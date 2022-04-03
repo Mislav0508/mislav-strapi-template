@@ -44,7 +44,6 @@ export default {
   },
   beforeMount  () {
     this.$store.dispatch('setPath', $nuxt.$route.path.substring(1,3))
-    console.log("path", $nuxt.$route.path.substring(1,3));
     window.addEventListener('scroll', this.checkPosition);
   },
   beforeDestroy () {
@@ -80,7 +79,6 @@ export default {
       this.sidebar = val
     },
     async $route() {
-      console.log("path", $nuxt.$route.path.substring(1,3));
       if ($nuxt.$route.path.substring(1,3) == 'lo') {
         this.$store.dispatch('setPath', 'en')
       } else {

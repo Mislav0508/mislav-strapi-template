@@ -1,12 +1,12 @@
 <template>
 
-  <v-container @click="handleClick" data-aos="fade-up" 
+  <div @click="handleClick" data-aos="fade-up" 
           data-aos-duration="500"
           data-aos-delay="500"
           data-aos-easing="ease-in"
           data-aos-once="true">
 
-    <div class="d-flex align-stretch justify-center flex-column text-center ">
+    <v-container class="d-flex align-center justify-center flex-column text-center">
       <v-row class="pa-5">
 
       <v-row class="img-container d-flex align-center justify-center">
@@ -33,7 +33,7 @@
 
       </v-row>
 
-    </div>
+    </v-container>
 
     <v-dialog
       v-model="dialog"
@@ -64,7 +64,7 @@
       </v-card>
     </v-dialog>
 
-  </v-container>
+  </div>
 
 </template>
 
@@ -102,14 +102,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.block-1-rooms{
-  min-height: 30vh;
-}
 .gallery-item-img {
   width: 100%;
-  min-width: 15vw;
+  // max-width: 20vw;
   height: 100%;
-  min-height: 20vh;
+  min-height: 15vh;
   object-fit: cover;
   overflow: hidden;
   transition: all 0.35s linear;
@@ -118,7 +115,7 @@ export default {
 }
 @media screen and (max-width: 1264px) {
   .gallery-item-img {
-    min-width: 20vw;
+    min-width: 10vw;
   }
 }
 h3{

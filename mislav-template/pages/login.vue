@@ -30,16 +30,21 @@
                         </v-form>
                      </v-card-text>
                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <NuxtLink v-if="!this.$store.state.token" :to="localePath('/login')" @click.native="Login()">
-                           <v-btn color="primary" 
-                           :disabled="!password || !email"
-                          >{{ title }}</v-btn>
-                        </NuxtLink>
+                        <v-spacer></v-spacer>  
+
+                        <v-btn color="primary" 
+                          :nuxt="true"
+                          :to="localePath('/events')"
+                          v-if="!this.$store.state.token" 
+                          @click.native="Login()"
+                          :disabled="!password || !email"
+                        >{{ title }}</v-btn>
+                        
                         <NuxtLink v-else :to="localePath('/login')" @click.native="Logout()">
                            <v-btn color="primary" 
                           >Logout</v-btn>
                         </NuxtLink>
+
                         <v-snackbar v-model="snackbar">
                           {{ error }}
                           <template v-slot:action="{ attrs }">
@@ -88,7 +93,7 @@ export default {
         identifier: this.email,
         password: this.password
         })
-        console.log("res",res);
+        // console.log("res",res);
         const { jwt, user } = res
         this.$cookies.set('jwt', jwt, {
           path: '/',
@@ -103,6 +108,13 @@ export default {
 
         this.$store.dispatch('setToken', jwt)
         this.$store.dispatch('setUser', user) 
+        this.$store.dispatch('setPath', 'en')
+
+        setTimeout(() => {
+          this.$router.push({
+            path: 'en/events'
+          })
+        }, 500);
       } catch (error) {
         this.error = error.response.data.error.message
         this.snackbar = true        

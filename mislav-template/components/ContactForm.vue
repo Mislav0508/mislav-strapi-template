@@ -60,22 +60,13 @@
 </template>
 
 <script>
+import inputRules from "../mixins/inputRules"
 export default {
+  mixins: [ inputRules ],
   data: () => ({
     name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 30) || 'Name must be less than 30 characters',
-    ],
     email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-    ],
     message: '',
-    messageRules: [
-      v => !!v || 'Message is required'
-    ],
     successAlert: false,
     error: "greška"
   }),
