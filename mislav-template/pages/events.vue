@@ -21,7 +21,7 @@
     <v-container class="d-flex">
       <v-col cols="12" xl="8" lg="8" md="8" sm="12" class="grid-container pa-sm-10" >
         <Event v-for="(event, i) in filteredTitles " :key="i"
-        :image="'http://localhost:1338'+event.image_url"
+        :image_url="'http://localhost:1338'+event.image_url"
         :tags="event.tags.split(', ')"
         :title="event.title"
         :date="event.date"

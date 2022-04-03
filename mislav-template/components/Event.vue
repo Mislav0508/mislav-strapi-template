@@ -11,7 +11,7 @@
 
       <v-row class="img-container d-flex align-center justify-center">
         <div class="add"></div>
-        <img :src="image" alt="img" class="gallery-item-img">
+        <img :src="image_url" alt="img" class="gallery-item-img">
       </v-row>
 
       <v-row class="d-flex flex-column">
@@ -73,7 +73,7 @@ import aosMixin from "../mixins/aos"
 export default {
   mixins: [aosMixin],
   props: { 
-    image: String,
+    image_url: String,
     index: Number,
     tags: Array,
     title: String,
