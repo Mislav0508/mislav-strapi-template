@@ -150,13 +150,31 @@
           <v-btn large color="primary" type="submit" width="100%" :disabled="!locale" class="grid-submit-btn mt-5">Create Event</v-btn>
 
           <v-alert
-          v-if="successAlert"
+          v-if="createAlert"
           class="grid-alert my-5"
           type="success"
           dense
           >Event created!</v-alert>
 
         </v-form>
+
+        <v-row class="d-flex align-center justify-center flex-column my-5 px-4">
+          <h3 class="py-5">Update an event.</h3>
+          <v-select
+            :items="event_ids"
+            v-model="update_id"
+            label="Select event ID"
+            dense
+            class="py-5"
+          ></v-select>
+          <v-btn large color="primary" type="submit" width="100%" :disabled="!update_id" class="grid-submit-btn mt-5" @click="updateEvent">Update Event</v-btn>
+          <v-alert
+            v-if="updateAlert"
+            class="my-5"
+            type="success"
+            dense
+            >Event updated!</v-alert>
+        </v-row>
 
         <v-row class="d-flex align-center justify-center flex-column my-5 px-4">
           <h3 class="py-5">Delete an event.</h3>
@@ -168,13 +186,14 @@
             class="py-5"
           ></v-select>
           <v-btn large color="error" type="submit" width="100%" :disabled="!delete_id" class="grid-submit-btn mt-5" @click="deleteEvent">Delete Event</v-btn>
+          <v-alert
+            v-if="deleteAlert"
+            class="my-5"
+            type="success"
+            dense
+            >Event deleted!</v-alert>
         </v-row>
-        <v-alert
-          v-if="deleteAlert"
-          class="my-5"
-          type="success"
-          dense
-          >Event deleted!</v-alert>
+
       </v-col>
 
     </v-container>
@@ -202,11 +221,13 @@ export default {
       body: 'test',
       locale: '',
       menu: false,
-      successAlert: false,
+      createAlert: false,
       error: '',
       event_ids: [],
       delete_id: null,
-      deleteAlert: false
+      deleteAlert: false,
+      update_id: null,
+      updateAlert: false,
     }
   },
   methods: {
@@ -235,9 +256,45 @@ export default {
           "body": `${this.body}`,
         }
         })
-        this.successAlert = true
+        this.createAlert = true
         setTimeout(() => {
-          this.successAlert = false
+          this.createAlert = false
+        }, 3500)
+
+        console.log("res",res);
+      } catch (error) {
+        this.error = error
+        console.log(error.response);
+      }
+    },
+    async updateEvent() {
+      const jwt = this.$cookies.get('jwt')
+      if (this.image == null) this.image = ''
+      if (this.tags == []) this.tags = ''
+
+      try {
+        let res = await this.$axios.$put(`http://localhost:1338/api/events/${this.update_id}`, {
+          headers: {
+            'Authorization': `Bearer ${jwt}`,
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive'
+          },
+          // THIS WORKS
+          "data": {
+          "locale": `${this.locale}`,
+          "image": `${this.Image}`,
+          "image_url": `${this.image_url}`,
+          "title": `${this.title}`,
+          "tags": `${this.tags.toString().replaceAll(',', ', ')}`,
+          "date": `${this.date}`,
+          "body": `${this.body}`,
+        }
+        })
+        this.updateAlert = true
+        setTimeout(() => {
+          this.updateAlert = false
         }, 3500)
 
         console.log("res",res);
