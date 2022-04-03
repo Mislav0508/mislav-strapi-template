@@ -27,16 +27,12 @@
     <v-container fluid style="position: relative;" class="py-10">
       <v-row >
 
-        <v-img
-          class="block-img-center"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="/images/slider/slider-home-2.jpg"
-          data-aos="fade-in" 
-          data-aos-duration="1000"
-          data-aos-easing="ease-out"
-          data-aos-delay="200"
-          data-aos-once="true"
-        ></v-img>
+        <NuxtImg provider="cloudinary" src="v1649002657/images/slider/slider-home-2_etgawb.jpg" class="block-img-center"
+        data-aos="fade-in" 
+        data-aos-duration="1000"
+        data-aos-easing="ease-out"
+        data-aos-delay="200"
+        data-aos-once="true"/>
 
       </v-row>
     </v-container>
@@ -56,16 +52,12 @@
     <v-container fluid style="position: relative;" class="py-10">
       <v-row class="d-flex align-center justify-center ">
 
-        <v-img
-          class="block-img-square"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="/images/slider/slider-home-3.jpg"
-          data-aos="fade-up" 
-          data-aos-duration="1000"
-          data-aos-easing="ease-in"
-          data-aos-delay="200"
-          data-aos-once="true"
-        ></v-img>
+        <NuxtImg provider="cloudinary" src="v1649002666/images/slider/slider-home-3_xb7hss.jpg" class="block-img-square"
+        data-aos="fade-in" 
+        data-aos-duration="1000"
+        data-aos-easing="ease-out"
+        data-aos-delay="200"
+        data-aos-once="true"/>
 
       </v-row>
     </v-container>
@@ -73,16 +65,13 @@
     <v-container fluid style="position: relative;" class="py-15">
       <v-row class="d-flex align-center justify-center ">
 
-        <v-img
-          class="block-img-square"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="/images/slider/slider-home-4.jpg"
-          data-aos="fade-up" 
-          data-aos-duration="1000"
-          data-aos-easing="ease-in"
-          data-aos-delay="200"
-          data-aos-once="true"
-        ></v-img>
+        <NuxtImg provider="cloudinary" 
+        src="v1649002658/images/slider/slider-home-4_sbfsnn.jpg" class="block-img-square"
+        data-aos="fade-in" 
+        data-aos-duration="1000"
+        data-aos-easing="ease-out"
+        data-aos-delay="200"
+        data-aos-once="true"/>
 
       </v-row>
     </v-container>
@@ -174,10 +163,12 @@ export default {
   min-height: 30vh;
 }
 .block-img-center {
+  object-fit: cover;
   max-height: 70vh;
   min-width: 100vw;
 }
-.block-img-square {
+.block-img-square {  
+  object-fit: cover;
   min-height: 100vh;
   max-width: 60vw;
 }

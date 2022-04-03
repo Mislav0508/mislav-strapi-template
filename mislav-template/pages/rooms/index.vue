@@ -24,17 +24,16 @@
     color: white;" class="pb-10">
       <v-row >
 
-        <v-img
+        <NuxtImg provider="cloudinary" 
+          src="v1649002652/images/home/home_pic4_ewkfls.jpg" 
+          fit="cover" 
           class="block-img-margin-left"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="/images/home/home_pic4.jpg"
           style="transform:translateX(-3%)"
           data-aos="fade-in" 
           data-aos-duration="1000"
           data-aos-easing="ease-out"
           data-aos-delay="200"
-          data-aos-once="true"
-        ></v-img>
+          data-aos-once="true"/>
 
       <div class="text-container d-flex align-start flex-column pr-15" >
 

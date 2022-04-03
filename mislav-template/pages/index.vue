@@ -33,11 +33,7 @@
 
       <v-col cols="12" xl="3" lg="3" md="6" sm="">
         <div class="img-container d-flex align-center justify-center">
-          <v-img
-            class="square-img-small-wide"
-            lazy-src="https://picsum.photos/id/11/10/6"
-            src="/images/home/home_pic2.jpeg"
-          ></v-img>
+          <NuxtImg provider="cloudinary" src="v1649002656/images/home/home_pic2_gkybve.jpg" fit="cover" class="square-img-small-wide"/>
         </div>
       </v-col>
 
@@ -76,11 +72,7 @@
       data-aos-delay="400"
       data-aos-once="true">
         <div class="img-container d-flex align-center justify-center pa-md-15">
-          <v-img
-            class="square-img-small"
-            lazy-src="https://picsum.photos/id/11/10/6"
-            src="/images/home/home_pic3.jpg"
-          ></v-img>
+          <NuxtImg provider="cloudinary" src="v1649002652/images/home/home_pic3_su9ywh.jpg" fit="cover" class="square-img-small"/>
         </div>
       </v-col>
 
@@ -110,17 +102,16 @@
   color: white;" class="pb-10">
       <v-row >
 
-        <v-img
+        <NuxtImg provider="cloudinary" 
+          src="v1649002652/images/home/home_pic4_ewkfls.jpg" 
+          fit="cover" 
           class="block-img-margin-left"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="/images/home/home_pic4.jpg"
           style="transform:translateX(-3%)"
           data-aos="fade-in" 
           data-aos-duration="1000"
           data-aos-easing="ease-out"
           data-aos-delay="200"
-          data-aos-once="true"
-        ></v-img>
+          data-aos-once="true"/>
 
       <div class="text-container d-flex align-start flex-column pr-15" >
 
@@ -154,17 +145,16 @@
   color: white;" class="py-10">
       <v-row >
 
-        <v-img
+        <NuxtImg provider="cloudinary" 
+          src="v1649002652/images/home/home_pic5_lyoa9y.jpg" 
+          fit="cover" 
           class="block-img-margin-left"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          src="/images/home/home_pic5.jpg"
           style="transform:translateX(3%)"
           data-aos="fade-in" 
           data-aos-duration="1000"
           data-aos-easing="ease-out"
           data-aos-delay="200"
-          data-aos-once="true"
-        ></v-img>
+          data-aos-once="true"/>
 
       <div class="text-container d-flex align-start flex-column pr-15">
 
@@ -224,11 +214,7 @@
 
         <v-col cols="12" xl="3" lg="3" md="6" sm="">
           <div class="img-container d-flex align-center justify-center">
-            <v-img
-              class="square-img-small"
-              lazy-src="https://picsum.photos/id/11/10/6"
-              src="/images/home/home_pic1.jpeg"
-            ></v-img>
+            <NuxtImg provider="cloudinary" src="v1649002652/images/home/home_pic1_pbsxwp.jpg" fit="cover" class="square-img-small"/>
           </div>
         </v-col>
 
@@ -268,11 +254,11 @@ export default {
         views: "sea view",
         recommends: "great for business trip",
         images: [
-          "/images/home/midSlider/midSlider-1.jpg",
-          "/images/home/midSlider/midSlider-2.jpg",
-          "/images/home/midSlider/midSlider-3.jpeg",
-          "/images/home/midSlider/midSlider-4.jpg",
-          "/images/home/midSlider/midSlider-5.jpg",
+          "https://res.cloudinary.com/media-dev/image/upload/v1649002652/images/home/midSlider/midSlider-1_gbqk2o.jpg",
+          "https://res.cloudinary.com/media-dev/image/upload/v1649002653/images/home/midSlider/midSlider-2_yh4ch5.jpg",
+          "https://res.cloudinary.com/media-dev/image/upload/v1649016234/images/home/midSlider/midSlider-3_uutgwm.jpg",
+          "https://res.cloudinary.com/media-dev/image/upload/v1649002653/images/home/midSlider/midSlider-4_aecn8w.jpg",
+          "https://res.cloudinary.com/media-dev/image/upload/v1649002653/images/home/midSlider/midSlider-5_rfqkjs.jpg",
         ],
         imgSizes: [ 2, 1, 1, 2, 2 ],
         translateX: 50,
@@ -285,6 +271,7 @@ export default {
   max-width: clamp(17rem, 5vw, 20rem);
 }
 .square-img-small-wide{
+  object-fit: cover;
   min-height: 45vh;
   max-height: 45vh;
   min-width: 35vw;

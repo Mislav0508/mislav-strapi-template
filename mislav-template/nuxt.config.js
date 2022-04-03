@@ -79,8 +79,15 @@ export default {
     '@nuxtjs/i18n',
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
+    '@nuxt/image',
   
   ],
+
+  image: {
+    cloudinary: {
+      baseURL: 'https://res.cloudinary.com/media-dev/image/upload/'
+    }
+  },
 
   middleware: ["auth"],
 
