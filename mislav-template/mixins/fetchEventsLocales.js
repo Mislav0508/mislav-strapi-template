@@ -4,12 +4,13 @@ export default {
       try {
         const response = await this.$axios.get(`http://localhost:1338/api/events?locale=${locale}`, {
           headers: {
-            Authorization: `Bearer ${this.$store.state.token}`
+            Authorization: `Bearer ${this.$store.state.token}`,
           }
         })
         
         let {data} = response.data
         let attributes = data.map(x => x.attributes)
+        // console.log("attributes",attributes);
 
         let ids = []
         data.forEach((x,i) => ids.push(x.id))
@@ -23,6 +24,21 @@ export default {
         // console.log("sortedDates",sortedDates);
 
         // console.log("attributes",attributes);
+
+        const img_response = await this.$axios.get(`http://localhost:1338/api/events?populate=Image`, {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.token}`,
+          }
+        })
+
+        let Images_array = img_response.data.data
+        let Images = Images_array.map(x => x.attributes.Image)
+
+        attributes.forEach((x,i) => x.Image = Images[i])
+
+        let strings = attributes.map((x,i) => Object.values(x).toString())
+        attributes.forEach((x,i) => x.strings = strings[i])
+        console.log("attributes",attributes);
 
         return {attributes, ids}
       } catch (error) {

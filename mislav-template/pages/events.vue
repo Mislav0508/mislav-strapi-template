@@ -20,8 +20,8 @@
 
     <v-container class="d-flex">
       <v-col cols="12" xl="8" lg="8" md="8" sm="12" class="grid-container pa-sm-10" >
-        <Event v-for="(event, i) in filteredTitles " :key="i"
-        :image_url="'http://localhost:1338'+event.image_url"
+        <Event v-for="(event, i) in filteredEvents " :key="i"
+        :image_url="'http://localhost:1338'+event.Image.data[0].attributes.url"
         :tags="event.tags.split(', ')"
         :title="event.title"
         :date="event.date"
@@ -54,19 +54,10 @@
             label="image"
             truncate-length="15"
             prepend-icon="mdi-camera"
+            v-model="Image"
             show-size
             :rules="imageRules"
           ></v-file-input>
-          
-          <v-text-field
-            color="#222222"
-            clearable
-            v-model="image_url"
-            label="Image_url"
-            type="text"
-            name="image_url"
-            required
-          ></v-text-field>
           
           <v-text-field
             color="#222222"
@@ -213,8 +204,7 @@ export default {
     return {
       search: '',
       events: [],
-      image: 'asdads',
-      image_url: 'test',
+      Image: null,
       title: 'test',
       tags: [],
       date: '',
@@ -233,11 +223,11 @@ export default {
   methods: {
     async createEvent() {
       const jwt = this.$cookies.get('jwt')
-      if (this.image == null) this.image = ''
-      if (this.tags == []) this.tags = ''
 
+      // CREATE NEW ENTRY
+      if (this.tags == []) this.tags = ''
       try {
-        let res = await this.$axios.$post("http://localhost:1338/api/events", {
+        var res = await this.$axios.$post("http://localhost:1338/api/events", {
           headers: {
             'Authorization': `Bearer ${jwt}`,
             'Accept': '*/*',
@@ -248,24 +238,47 @@ export default {
           // THIS WORKS
           "data": {
           "locale": `${this.locale}`,
-          "image": `${this.Image}`,
-          "image_url": `${this.image_url}`,
           "title": `${this.title}`,
           "tags": `${this.tags.toString().replaceAll(',', ', ')}`,
           "date": `${this.date}`,
           "body": `${this.body}`,
         }
-        })
-        this.createAlert = true
-        setTimeout(() => {
-          this.createAlert = false
-        }, 3500)
+        })        
 
-        console.log("res",res);
+        console.log("res",res.data.id);
       } catch (error) {
         this.error = error
         console.log(error.response);
       }
+
+      // IMAGE UPLOAD
+      let ImageID = await res.data.id
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", `Bearer ${jwt}`);
+
+      var formdata = new FormData();
+      formdata.append("files", this.Image, "[PROXY]");
+      formdata.append("ref", "api::event.event");
+      formdata.append("refId", ImageID);
+      formdata.append("field", "Image");
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+      };
+
+      await fetch("http://localhost:1338/api/upload", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+      this.createAlert = true
+      setTimeout(() => {
+        this.createAlert = false
+      }, 3500)
+      
     },
     async updateEvent() {
       const jwt = this.$cookies.get('jwt')
@@ -284,8 +297,6 @@ export default {
           // THIS WORKS
           "data": {
           "locale": `${this.locale}`,
-          "image": `${this.Image}`,
-          "image_url": `${this.image_url}`,
           "title": `${this.title}`,
           "tags": `${this.tags.toString().replaceAll(',', ', ')}`,
           "date": `${this.date}`,
@@ -320,9 +331,9 @@ export default {
     }
   },
   computed: {
-    filteredTitles : function() {
+    filteredEvents : function() {
       return this.events.filter(obj => {
-          return obj.title.toLowerCase().includes(this.search.toLowerCase()) 
+          return obj.strings.toLowerCase().includes(this.search.toLowerCase()) 
                  
       })
     }
