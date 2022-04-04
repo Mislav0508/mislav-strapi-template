@@ -155,7 +155,7 @@
             :items="titles"
             v-model="update_title"
             @change="fillUpdateFields(update_title)"
-            label="Select event"
+            label="Select event to update"
             dense
             class="py-5"
           ></v-select>
@@ -171,13 +171,13 @@
         <v-row class="d-flex align-center justify-center flex-column my-5 px-4">
           <h3 class="py-5">Delete an event.</h3>
           <v-select
-            :items="event_ids"
-            v-model="delete_id"
-            label="Select event ID"
+            :items="titles"
+            v-model="delete_title"
+            label="Select event to delete"
             dense
             class="py-5"
           ></v-select>
-          <v-btn large color="error" type="submit" width="100%" :disabled="!delete_id" class="grid-submit-btn mt-5" @click="deleteEvent">Delete Event</v-btn>
+          <v-btn large color="error" type="submit" width="100%" :disabled="!delete_title" class="grid-submit-btn mt-5" @click="deleteEvent">Delete Event</v-btn>
           <v-alert
             v-if="deleteAlert"
             class="my-5"
@@ -217,7 +217,7 @@ export default {
       createAlert: false,
       error: '',
       event_ids: [],
-      delete_id: null,
+      delete_title: '',
       deleteAlert: false,
       updateAlert: false,
     }
@@ -349,13 +349,18 @@ export default {
       }
     },
     async deleteEvent() {
+      // DETERMINING WHICH EVENT TO DELETE
+      var delete_title = this.events.filter((x,i) => {
+        return x.title == this.delete_title
+      })
+      console.log("delete_title",delete_title);
       try {
-        let res = await this.$axios.$delete(`http://localhost:1338/api/events/${this.delete_id}`)
+        let res = await this.$axios.$delete(`http://localhost:1338/api/events/${delete_title[0].id}`)
         this.deleteAlert = true
         setTimeout(() => {
           this.deleteAlert = false
         }, 3500)
-        this.delete_id = null
+        this.delete_title = ''
 
         console.log("res",res);
       } catch (error) {
