@@ -33,14 +33,17 @@ export default {
 
         let Images_array = img_response.data.data
         let Images = Images_array.map(x => x.attributes.Image)
+        console.log("Images",Images);
 
         attributes.forEach((x,i) => x.Image = Images[i])
+        attributes.forEach((x,i) => x.id = ids[i])
+        attributes.forEach((x,i) => x.Image_id = Images[i].data[0].id)
 
         let strings = attributes.map((x,i) => Object.values(x).toString())
         attributes.forEach((x,i) => x.strings = strings[i])
         console.log("attributes",attributes);
 
-        return {attributes, ids}
+        return {attributes}
       } catch (error) {
         this.error = error;
       } 

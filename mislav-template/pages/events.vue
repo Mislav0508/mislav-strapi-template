@@ -152,13 +152,14 @@
         <v-row class="d-flex align-center justify-center flex-column my-5 px-4">
           <h3 class="py-5">Update an event.</h3>
           <v-select
-            :items="event_ids"
-            v-model="update_id"
-            label="Select event ID"
+            :items="titles"
+            v-model="update_title"
+            @change="fillUpdateFields(update_title)"
+            label="Select event"
             dense
             class="py-5"
           ></v-select>
-          <v-btn large color="primary" type="submit" width="100%" :disabled="!update_id" class="grid-submit-btn mt-5" @click="updateEvent">Update Event</v-btn>
+          <v-btn large color="primary" type="submit" width="100%" :disabled="!update_title" class="grid-submit-btn mt-5" @click="updateEvent">Update Event</v-btn>
           <v-alert
             v-if="updateAlert"
             class="my-5"
@@ -205,10 +206,12 @@ export default {
       search: '',
       events: [],
       Image: null,
-      title: 'test',
+      title: '',
+      titles: [],
+      update_title: '',
       tags: [],
       date: '',
-      body: 'test',
+      body: '',
       locale: '',
       menu: false,
       createAlert: false,
@@ -216,7 +219,6 @@ export default {
       event_ids: [],
       delete_id: null,
       deleteAlert: false,
-      update_id: null,
       updateAlert: false,
     }
   },
@@ -244,7 +246,6 @@ export default {
           "body": `${this.body}`,
         }
         })        
-
         console.log("res",res.data.id);
       } catch (error) {
         this.error = error
@@ -278,15 +279,20 @@ export default {
       setTimeout(() => {
         this.createAlert = false
       }, 3500)
-      
+
     },
     async updateEvent() {
-      const jwt = this.$cookies.get('jwt')
-      if (this.image == null) this.image = ''
       if (this.tags == []) this.tags = ''
+      const jwt = this.$cookies.get('jwt')
+
+      // DETERMINING WHICH EVENT TO UPDATE
+      var update_title = this.events.filter((x,i) => {
+        return x.title == this.update_title
+      })
+      console.log("update_title",update_title);
 
       try {
-        let res = await this.$axios.$put(`http://localhost:1338/api/events/${this.update_id}`, {
+        let res = await this.$axios.$put(`http://localhost:1338/api/events/${update_title[0].id}`, {
           headers: {
             'Authorization': `Bearer ${jwt}`,
             'Accept': '*/*',
@@ -303,6 +309,34 @@ export default {
           "body": `${this.body}`,
         }
         })
+
+        // DELETE EXISTING IMAGE
+        let deleted = await this.$axios.$delete(`http://localhost:1338/api/upload/files/${update_title[0].Image_id}`)
+        console.log("deleted",deleted);
+
+        // IMAGE UPLOAD
+        let ImageID = await res.data.id
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${jwt}`);
+
+        var formdata = new FormData();
+        formdata.append("files", this.Image, "[PROXY]");
+        formdata.append("ref", "api::event.event");
+        formdata.append("refId", ImageID);
+        formdata.append("field", "Image");
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: formdata,
+          redirect: 'follow'
+        };
+
+        await fetch("http://localhost:1338/api/upload", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+
         this.updateAlert = true
         setTimeout(() => {
           this.updateAlert = false
@@ -328,7 +362,19 @@ export default {
         this.error = error
         console.log(error.response);
       }
-    }
+    },
+    fillUpdateFields(update_title) {
+      var fields = this.events.filter((x,i) => {
+        return x.title == update_title
+      })
+      console.log("fields",fields);
+      this.Image = fields[0].Image.data[0].attributes
+      this.title = fields[0].title
+      this.tags = fields[0].tags.split(', ')
+      this.date = fields[0].date
+      this.body = fields[0].body
+      this.locale = fields[0].locale
+    },
   },
   computed: {
     filteredEvents : function() {
@@ -340,9 +386,10 @@ export default {
   },
   async mounted() {
     // FETCHING LOCALES FROM STRAPI    
-    const { attributes, ids } = await this.fetchEventsLocales(this.$store.state.path)
+    const { attributes } = await this.fetchEventsLocales(this.$store.state.path)
     this.events = attributes
-    this.event_ids = ids
+    this.event_ids = attributes.map((x,i) => x.id)
+    this.titles = this.events.map((x,i) => x.title)
 
   }
 }
