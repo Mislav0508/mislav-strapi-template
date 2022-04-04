@@ -115,6 +115,7 @@ export default {
           })
         }, 500);
       } catch (error) {
+        console.log(error.response);
         this.error = error.response.data.error.message
         this.snackbar = true        
       }

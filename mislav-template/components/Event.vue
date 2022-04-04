@@ -104,9 +104,7 @@ export default {
 <style lang="scss" scoped>
 .gallery-item-img {
   width: 100%;
-  // max-width: 20vw;
-  height: 100%;
-  min-height: 15vh;
+  min-height: 35vh;
   object-fit: cover;
   overflow: hidden;
   transition: all 0.35s linear;
@@ -116,6 +114,7 @@ export default {
 @media screen and (max-width: 1264px) {
   .gallery-item-img {
     min-width: 10vw;
+    min-height: 25vh;
   }
 }
 h3{

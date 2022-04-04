@@ -64,23 +64,27 @@
 
         </v-menu>
 
-        <!-- <NuxtLink to="/rooms" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]">Our Rooms</NuxtLink> -->
-
         <NuxtLink :to="localePath('/events')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('events') ? 'active-link-secondary': ''">{{ link_locales.link_events }}</NuxtLink>
         <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ link_locales.link_gallery }}</NuxtLink>
         <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ link_locales.link_explore }}</NuxtLink>
         <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ link_locales.link_contact }}</NuxtLink>
+
       </v-col>
 
       <v-col cols="2" xl="2" lg="4" md="1" sm="1"></v-col>
 
-      <v-col cols="1" xl="3" lg="1" md="1" sm="2" class="d-flex align-center justify-center">
+      <v-col cols="1" xl="3" lg="1" md="1" sm="2" class="d-flex align-center justify-center mr-md-2">
+
+        <NuxtLink :to="localePath('/login')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ !this.$store.state.token ? 'Login' : 'Logout' }}</NuxtLink>
+
         <div role="button" 
         :class="sidebar ? 'menu-btn open ' : 'menu-btn'" 
         @click="showSidebar">
           <div :class="position > 0 || route !== 3 ? 'menu-btn__burger_dark' : 'menu-btn__burger'" ></div>
         </div>
+
         <Picker class="d-none d-sm-flex"/>
+        
       </v-col>
 
       </v-row>

@@ -54,14 +54,14 @@
               e.preventDefault()
               this.done = false;
               this.error = false;
-              this.axios.post(`http://localhost:1338/api/auth/forgot-password`, {
+              this.$axios.$post(`http://localhost:1338/api/auth/forgot-password`, {
                   email: this.email
               })
               .then(() => {
                   this.done = true
               })
               .catch(e => {
-                  e;
+                  console.log(e.response);;
                   this.error = true
               })
           }

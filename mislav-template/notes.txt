@@ -1,3 +1,3 @@
 try Swiper js (cube)
 
-
+In Strapi, there are 2 types of users. Admin panel users which are under Settings -> USers and End users which are the one consuming the API from the frontend. They are under Content manager -> collection types -> Users

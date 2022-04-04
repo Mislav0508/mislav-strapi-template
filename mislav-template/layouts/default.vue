@@ -58,7 +58,7 @@ export default {
       document.body.style.top = '';
       window.scrollTo(0, parseInt(scrollY || '0') * -1);
       } else {
-        document.body.style.padding = '0px 15px 0px 0px';
+        document.body.style.padding = '0px';
         document.body.style.position = 'fixed';
         document.body.style.top = `-${window.scrollY}px`;
       }

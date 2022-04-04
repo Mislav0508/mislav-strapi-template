@@ -18,7 +18,7 @@
 
     </v-container>
 
-    <v-container class="d-flex">
+    <v-container class="d-flex flex-column flex-md-row">
       <v-col cols="12" xl="8" lg="8" md="8" sm="12" class="grid-container pa-sm-10" >
         <Event v-for="(event, i) in filteredEvents " :key="i"
         :image_url="'http://localhost:1338'+event.Image.data[0].attributes.url"
@@ -28,7 +28,7 @@
         :body="event.body"
         />
       </v-col>
-      <v-col cols="12" xl="3" lg="3" md="3" sm="3">
+      <v-col v-if="this.$store.state.user.email=='mislav0508@hotmail.com'" cols="12" xl="3" lg="3" md="3" sm="3">
 
         <v-text-field
           data-aos="fade-right" 

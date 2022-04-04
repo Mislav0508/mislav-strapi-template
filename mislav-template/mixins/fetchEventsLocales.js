@@ -33,7 +33,6 @@ export default {
 
         let Images_array = img_response.data.data
         let Images = Images_array.map(x => x.attributes.Image)
-        console.log("Images",Images);
 
         attributes.forEach((x,i) => x.Image = Images[i])
         attributes.forEach((x,i) => x.id = ids[i])
