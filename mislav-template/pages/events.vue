@@ -353,7 +353,6 @@ export default {
       var delete_title = this.events.filter((x,i) => {
         return x.title == this.delete_title
       })
-      console.log("delete_title",delete_title);
       try {
         let res = await this.$axios.$delete(`http://localhost:1338/api/events/${delete_title[0].id}`)
         this.deleteAlert = true
@@ -373,6 +372,7 @@ export default {
         return x.title == update_title
       })
       console.log("fields",fields);
+      // IMAGE DOESN'T WORK WHEN FILLED
       this.Image = fields[0].Image.data[0].attributes
       this.title = fields[0].title
       this.tags = fields[0].tags.split(', ')

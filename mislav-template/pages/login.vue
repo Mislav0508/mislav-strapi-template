@@ -69,7 +69,9 @@
 
 <script>
 import { mdiAccount , mdiKey  } from '@mdi/js'
+import inputRules from "../mixins/inputRules"
 export default {
+  mixins: [ inputRules ],
   data() {
     return {
       title: 'Login',
@@ -79,9 +81,6 @@ export default {
       },
       email: 'mislav0508@hotmail.com',
       password: 'Mislav@05080639',
-      emailRules: [ 
-      v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-      ],
       error: '',
       snackbar: false,
     }
