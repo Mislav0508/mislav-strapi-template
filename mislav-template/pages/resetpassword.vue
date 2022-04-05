@@ -53,7 +53,7 @@ export default {
     methods: {
         async resetPassword(e) {
             e.preventDefault()
-            this.axios.post(`http://localhost:1338/api/auth/reset-password`, {
+            this.axios.post(`${process.env.STRAPI_API}/api/auth/reset-password`, {
                 code: this.$route.query.code,
                 password: this.password,
                 passwordConfirmation: this.confirmPassword

@@ -2,7 +2,7 @@ export default {
   methods: {
     fetchEventsLocales: async function(locale) {
       try {
-        const response = await this.$axios.get(`http://localhost:1338/api/events?locale=${locale}`, {
+        const response = await this.$axios.get(`${process.env.STRAPI_API}/api/events?locale=${locale}`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           }
@@ -25,7 +25,7 @@ export default {
 
         // console.log("attributes",attributes);
 
-        const img_response = await this.$axios.get(`http://localhost:1338/api/events?populate=Image`, {
+        const img_response = await this.$axios.get(`${process.env.STRAPI_API}/api/events?populate=Image`, {
           headers: {
             Authorization: `Bearer ${this.$store.state.token}`,
           }

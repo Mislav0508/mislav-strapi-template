@@ -88,7 +88,7 @@ export default {
   methods: {
     async Login() {    
       try {
-        let res = await this.$axios.$post("http://localhost:1338/api/auth/local", {
+        let res = await this.$axios.$post(`${process.env.STRAPI_API}/api/auth/local`, {
         identifier: this.email,
         password: this.password
         })

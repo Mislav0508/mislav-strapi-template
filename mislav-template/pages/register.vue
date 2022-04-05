@@ -87,7 +87,7 @@ export default {
   methods: {
     async Register(register) {
       try {
-        let response = await this.$axios.post('http://localhost:1338/api/auth/local/register', { email: register.email, password: register.password, username: register.username })
+        let response = await this.$axios.post(`${process.env.STRAPI_API}/api/auth/local/register`, { email: register.email, password: register.password, username: register.username })
         console.log("register response",response);
         this.$router.push('register')
       } catch (error) {

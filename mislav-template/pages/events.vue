@@ -19,7 +19,7 @@
     <v-container class="d-flex flex-column flex-md-row">
       <v-col cols="12" xl="8" lg="8" md="8" sm="12" class="grid-container pa-sm-10" >
         <Event v-for="(event, i) in filteredEvents " :key="i"
-        :image_url="'http://localhost:1338'+event.Image.data[0].attributes.url"
+        :image_url="`http://localhost:1338`+event.Image.data[0].attributes.url"
         :tags="event.tags.split(', ')"
         :title="event.title"
         :date="event.date"
@@ -227,7 +227,7 @@ export default {
       // CREATE NEW ENTRY
       if (this.tags == []) this.tags = ''
       try {
-        var res = await this.$axios.$post("http://localhost:1338/api/events", {
+        var res = await this.$axios.$post(`${process.env.STRAPI_API}/api/events`, {
           headers: {
             'Authorization': `Bearer ${jwt}`,
             'Accept': '*/*',
@@ -268,7 +268,7 @@ export default {
         redirect: 'follow'
       };
 
-      await fetch("http://localhost:1338/api/upload", requestOptions)
+      await fetch(`${process.env.STRAPI_API}/api/upload`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -290,7 +290,7 @@ export default {
       console.log("update_title",update_title);
 
       try {
-        let res = await this.$axios.$put(`http://localhost:1338/api/events/${update_title[0].id}`, {
+        let res = await this.$axios.$put(`${process.env.STRAPI_API}/api/events/${update_title[0].id}`, {
           headers: {
             'Authorization': `Bearer ${jwt}`,
             'Accept': '*/*',
@@ -309,7 +309,7 @@ export default {
         })
 
         // DELETE EXISTING IMAGE
-        let deleted = await this.$axios.$delete(`http://localhost:1338/api/upload/files/${update_title[0].Image_id}`)
+        let deleted = await this.$axios.$delete(`${process.env.STRAPI_API}/api/upload/files/${update_title[0].Image_id}`)
         console.log("deleted",deleted);
 
         // IMAGE UPLOAD
@@ -330,7 +330,7 @@ export default {
           redirect: 'follow'
         };
 
-        await fetch("http://localhost:1338/api/upload", requestOptions)
+        await fetch(`${process.env.STRAPI_API}/api/upload`, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -352,7 +352,7 @@ export default {
         return x.title == this.delete_title
       })
       try {
-        let res = await this.$axios.$delete(`http://localhost:1338/api/events/${delete_title[0].id}`)
+        let res = await this.$axios.$delete(`${process.env.STRAPI_API}/api/events/${delete_title[0].id}`)
         this.deleteAlert = true
         setTimeout(() => {
           this.deleteAlert = false
@@ -388,6 +388,7 @@ export default {
     }
   },
   async mounted() {
+    console.log("proces.env.STRAPI_API",process.env.STRAPI_API);
     // FETCHING LOCALES FROM STRAPI    
     const { attributes } = await this.fetchEventsLocales(this.$store.state.path)
     this.events = attributes

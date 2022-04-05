@@ -76,7 +76,7 @@ export default {
         this.titles.push(slide['slide_title'])
         this.subtitles.push(slide['slide_subtitle'])
         this.images.shift()
-        this.images.push('http://localhost:1338'+slide['slide_img_url'])
+        this.images.push(`${process.env.STRAPI_API}`+slide['slide_img_url'])
       })
     },
     index() {
@@ -107,7 +107,7 @@ export default {
       this.titles.push(slide['slide_title'])
       this.subtitles.push(slide['slide_subtitle'])
       this.images.shift()
-      this.images.push('http://localhost:1338'+slide['slide_img_url'])
+      this.images.push(`${process.env.STRAPI_API}`+slide['slide_img_url'])
     })
 
     this.interval = setInterval(() => {
