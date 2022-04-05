@@ -69,7 +69,7 @@
             await this.$axios.$post(`${process.env.STRAPI_API}/api/auth/forgot-password`, {
                 email: this.email,
                 url:
-                `${process.env.STRAPI_API}/admin/plugins/users-permissions/auth/reset-password`,
+                `${process.env.STRAPI_API}/admin/plugins/users-permissions/auth/forgot-password`,
             })
             .then(response => {
                 this.loading = false

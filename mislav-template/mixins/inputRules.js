@@ -14,7 +14,10 @@ export default {
       ],
       imageRules: [
         value => !value || value.size < 8000000 || 'Image size should be less than 8 MB!',
-      ]
+      ],
+      requiredRules: [
+        v => !!v || 'this field is required'
+      ],
     }
   }
 }

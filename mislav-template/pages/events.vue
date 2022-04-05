@@ -64,6 +64,7 @@
             label="Title"
             type="text"
             name="Title"
+            :rules="requiredRules"
             required
           ></v-text-field>
 
@@ -93,6 +94,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                :rules="requiredRules"
               ></v-text-field>
             </template>
             <v-date-picker
@@ -121,6 +123,7 @@
           <v-textarea
             v-model="body"
             color="teal"
+            :rules="requiredRules"
           >
             <template v-slot:label>
               <div>
@@ -134,9 +137,10 @@
             v-model="locale"
             label="Language"
             dense
+            :rules="requiredRules"
           ></v-select>
 
-          <v-btn large color="primary" type="submit" width="100%" :disabled="!locale" class="grid-submit-btn mt-5">Create Event</v-btn>
+          <v-btn large color="primary" type="submit" width="100%" :disabled="!Image || !title || !date || !locale || !body" class="grid-submit-btn mt-5">Create Event</v-btn>
 
           <v-alert
           v-if="createAlert"
@@ -371,13 +375,13 @@ export default {
       })
       console.log("fields",fields);
       // IMAGE DOESN'T WORK WHEN FILLED
-      this.Image = fields[0].Image.data[0].attributes
+      // this.Image = fields[0].Image.data[0].attributes.formats.large
       this.title = fields[0].title
       this.tags = fields[0].tags.split(', ')
       this.date = fields[0].date
       this.body = fields[0].body
       this.locale = fields[0].locale
-    },
+    }
   },
   computed: {
     filteredEvents : function() {
@@ -388,7 +392,6 @@ export default {
     }
   },
   async mounted() {
-    console.log("proces.env.STRAPI_API",process.env.STRAPI_API);
     // FETCHING LOCALES FROM STRAPI    
     const { attributes } = await this.fetchEventsLocales(this.$store.state.path)
     this.events = attributes
