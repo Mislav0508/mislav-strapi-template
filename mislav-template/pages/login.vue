@@ -34,13 +34,13 @@
 
                         <v-btn color="primary" 
                           :nuxt="true"
-                          :to="localePath('/events')"
+                          :to="localePath('/')"
                           v-if="!this.$store.state.token" 
                           @click.native="Login()"
                           :disabled="!password || !email"
                         >{{ title }}</v-btn>
                         
-                        <NuxtLink v-else :to="localePath('/login')" @click.native="Logout()">
+                        <NuxtLink v-else :to="localePath('/')" @click.native="Logout()">
                            <v-btn color="primary" 
                           >Logout</v-btn>
                         </NuxtLink>
@@ -109,11 +109,11 @@ export default {
         this.$store.dispatch('setUser', user) 
         this.$store.dispatch('setPath', 'en')
 
-        setTimeout(() => {
-          this.$router.push({
-            path: 'en/events'
-          })
-        }, 500);
+        // setTimeout(() => {
+        //   this.$router.push({
+        //     path: 'en/events'
+        //   })
+        // }, 500);
       } catch (error) {
         console.log(error.response);
         this.error = error.response.data.error.message

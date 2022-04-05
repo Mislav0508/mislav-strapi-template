@@ -1,19 +1,17 @@
 <template>
   <div>
-    <v-container class="block-1-events d-flex align-center pt-lg-15 mt-lg-10 mt-sm-7" >
+    <v-container class="d-flex align-center pt-lg-15 mt-lg-10 mt-sm-7" fluid>
 
-      <v-row>
-        <v-col cols="0" xl="2" lg="2" md="2" sm="2"></v-col>
-
-        <v-col cols="12" xl="8" lg="8" md="8" sm="8" class="mt-15 mt-sm-0 pr-10 pr-sm-0 text-center d-flex flex-column justify-center align-center">
+      <v-row class="block-1-events">
+        <v-col cols="12" xl="12" lg="12" md="12" sm="12" class="text-center d-flex flex-column justify-center align-center mt-0 pa-0" style="position: relative;">
+          <NuxtImg provider="cloudinary" src="v1649002656/images/home/home_pic2_gkybve.jpg" fit="cover" class="title-wide-img"/>
           <h2 data-aos="fade-in" 
           data-aos-duration="1000"
           data-aos-easing="ease-out"
           data-aos-delay="500"
-          data-aos-once="true">All Events</h2>
+          data-aos-once="true"
+          class="white--text title-text">All Events</h2>
         </v-col> 
-
-        <v-col cols="0" xl="2" lg="2" md="2" sm="2"></v-col> 
       </v-row>
 
     </v-container>
@@ -402,7 +400,17 @@ export default {
 
 <style lang="scss" scoped>
 .block-1-events{
-  min-height: 30vh;
+  min-height: 40vh;
+}
+.title-wide-img{
+  min-height: 40vh;
+  max-height: 40vh;
+  min-width: 100vw;
+  object-fit: cover;
+  filter: brightness(80%);
+}
+.title-text{
+  position: absolute;
 }
 .grid-container{
   display: grid;
