@@ -8,7 +8,6 @@
           <h2 data-aos="fade-in" 
           data-aos-duration="1000"
           data-aos-easing="ease-out"
-          data-aos-delay="500"
           data-aos-once="true"
           class="white--text title-text">All Events</h2>
         </v-col> 
@@ -260,7 +259,7 @@ export default {
       myHeaders.append("Authorization", `Bearer ${jwt}`);
 
       var formdata = new FormData();
-      formdata.append("files", this.Image, "[PROXY]");
+      formdata.append("files", this.Image, this.Image.name);
       formdata.append("ref", "api::event.event");
       formdata.append("refId", ImageID);
       formdata.append("field", "Image");
@@ -322,7 +321,7 @@ export default {
         myHeaders.append("Authorization", `Bearer ${jwt}`);
 
         var formdata = new FormData();
-        formdata.append("files", this.Image, "[PROXY]");
+        formdata.append("files", this.Image, this.Image.name);
         formdata.append("ref", "api::event.event");
         formdata.append("refId", ImageID);
         formdata.append("field", "Image");
@@ -375,7 +374,6 @@ export default {
       })
       console.log("fields",fields);
       // IMAGE DOESN'T WORK WHEN FILLED
-      // this.Image = fields[0].Image.data[0].attributes.formats.large
       this.title = fields[0].title
       this.tags = fields[0].tags.split(', ')
       this.date = fields[0].date
@@ -389,6 +387,13 @@ export default {
           return obj.strings.toLowerCase().includes(this.search.toLowerCase()) 
                  
       })
+    }
+  },
+  watch: {
+    Image (val, prev) {
+      console.log("prev",prev);
+      console.log("val",val.name);
+      
     }
   },
   async mounted() {
