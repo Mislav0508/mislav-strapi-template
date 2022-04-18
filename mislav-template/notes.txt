@@ -1,3 +1,5 @@
 try Swiper js (cube)
 
 In Strapi, there are 2 types of users. Admin panel users which are under Settings -> USers and End users which are the one consuming the API from the frontend. They are under Content manager -> collection types -> Users
+
+-change locales that are not going to be changed from strapi to i18n locales. (sidebar,navbar etc.)

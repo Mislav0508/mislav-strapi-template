@@ -4,8 +4,7 @@ export default {
       try {
         const response = await this.$axios.get(`${process.env.STRAPI_API}/api/events?locale=${locale}`, {
           headers: {
-            Authorization: `Bearer ${this.$store.state.token}`,
-            'Access-Control-Allow-Origin': '*'
+            Authorization: `Bearer ${this.$store.state.token}`
           }
         })
         

@@ -20,13 +20,7 @@
       </v-col>  
 
       <v-col class="d-none d-sm-flex justify-space-between align-center" cols="1" xl="3" lg="4" md="5" sm="8">
-        
-        <!-- <NuxtLink :to="localePath('/')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" >
-        <div v-html="rawLogo" :class="position > 0 || route !== '/index' ? 'logoSecondary' : 'logoPrimary'"/>          
-        </NuxtLink> -->
 
-        
-        
         <NuxtLink :to="localePath('/')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('index') && position > 0 ? 'active-link-secondary' : this.$route.name.includes('index') ? 'active-link-primary' : ''">
         {{ link_locales.link_home }}</NuxtLink>
 
@@ -48,7 +42,7 @@
 
           <v-list dense>
             <v-list-item dense nuxt>
-              <NuxtLink :to="localePath('/rooms')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="$nuxt.$route.name.includes('rooms_') ? 'active-link-secondary' : ''">
+              <NuxtLink :to="localePath({name: 'rooms'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="$nuxt.$route.name.includes('rooms_') ? 'active-link-secondary' : ''">
               <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ link_locales.sublink_rooms }}</v-list-item-title>
               </NuxtLink>
             </v-list-item>
@@ -56,7 +50,7 @@
               v-for="(room, i) in rooms"
               :key="i"
             >
-            <NuxtLink :to="localePath(`/rooms/${room.replace(/\s+/g, '')}`)" class="link-scroll" :id="$nuxt.$route.fullPath.includes(room) ? 'active-link-secondary' : ''">
+            <NuxtLink :to="localePath(`/en/our-rooms/${room.replace(/\s+/g, '')}`)" class="link-scroll" :id="$nuxt.$route.fullPath.includes(room) ? 'active-link-secondary' : ''">
               <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ room }}</v-list-item-title>
             </NuxtLink>
             </v-list-item>
@@ -120,7 +114,8 @@ export default {
       rawLogo,
       route: 3,
       rooms: [],
-      link_locales: []
+      link_locales: [],
+      roomChildPrefix: '/en/rooms/'
     }
   },
   methods: {
@@ -131,6 +126,9 @@ export default {
   },
   watch: {
     async $route (to, from) {
+      // console.log("path",$nuxt._route.fullPath);
+      // console.log("I18n",this.$i18n);
+      // console.log("locale",this.$i18n.locale);
       this.route = $nuxt.$route.path.length
       this.sidebar = false
       this.$emit("sidebar-navbar", this.sidebar)

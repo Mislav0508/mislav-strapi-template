@@ -80,13 +80,14 @@ export default {
          mdiKey  
       },
       email: 'mislav0508@hotmail.com',
-      password: 'Mislav@05080639',
+      password: '',
       error: '',
       snackbar: false,
     }
   },
   methods: {
-    async Login() {    
+    async Login() {  
+      // pass is Mislav@ and usual
       try {
         let res = await this.$axios.$post(`${process.env.STRAPI_API}/api/auth/local`, {
         identifier: this.email,

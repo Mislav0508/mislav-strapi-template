@@ -237,7 +237,7 @@ export default {
             'Content-Type': 'application/json',
             'Accept-Encoding': 'gzip, deflate, br',
             'Connection': 'keep-alive',
-            'Access-Control-Allow-Origin': '*'
+             
           },
           // THIS WORKS
           "data": {
@@ -270,7 +270,7 @@ export default {
         headers: myHeaders,
         body: formdata,
         redirect: 'follow',
-        'Access-Control-Allow-Origin': '*'
+         
       };
 
       await fetch(`${process.env.STRAPI_API}/api/upload`, requestOptions)
@@ -302,7 +302,7 @@ export default {
             'Content-Type': 'application/json',
             'Accept-Encoding': 'gzip, deflate, br',
             'Connection': 'keep-alive',
-            'Access-Control-Allow-Origin': '*'
+             
           },
           // THIS WORKS
           "data": {
@@ -317,7 +317,7 @@ export default {
         // DELETE EXISTING IMAGE
         let deleted = await this.$axios.$delete(`${process.env.STRAPI_API}/api/upload/files/${update_title[0].Image_id}`, {
           headers: {
-            'Access-Control-Allow-Origin': '*'
+             
           }
         })
         console.log("deleted",deleted);
@@ -338,7 +338,7 @@ export default {
           headers: myHeaders,
           body: formdata,
           redirect: 'follow',
-          'Access-Control-Allow-Origin': '*'
+           
         };
 
         await fetch(`${process.env.STRAPI_API}/api/upload`, requestOptions)
@@ -365,7 +365,7 @@ export default {
       try {
         let res = await this.$axios.$delete(`${process.env.STRAPI_API}/api/events/${delete_title[0].id}`, {
           headers: {
-            'Access-Control-Allow-Origin': '*'
+             
           }
         })
         this.deleteAlert = true
