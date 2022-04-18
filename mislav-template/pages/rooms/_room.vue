@@ -298,7 +298,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.params.room.includes('SuperiorRoom')) {
+    if (this.$route.params.room.includes('Superior')) {
       this.title = 'Superior Room'
       this.subtitle = 'GREAT FOR SUPERIOR TRIP'
       this.description.title = 'Great choice for a relaxing vacation for families with children or a group of friends.'
@@ -334,7 +334,7 @@ export default {
       this.capacity.adults = this.capacity.adults.filter(x => x !== this.capacity.adults[0])
       this.capacity.children = this.capacity.children.filter(x => x !== this.capacity.children[0])
       this.prices = this.prices.filter(x => x !== this.prices[0])
-    } else if (this.$route.params.room.includes('DeluxeRoom')) {
+    } else if (this.$route.params.room.includes('Deluxe')) {
       this.title = 'Deluxe Room'
       this.subtitle = 'GREAT FOR DELUXE TRIP'
       this.description.title = 'Great choice for a relaxing vacation for families with children or a group of friends.'
@@ -370,7 +370,7 @@ export default {
       this.capacity.adults = this.capacity.adults.filter(x => x !== this.capacity.adults[1])
       this.capacity.children = this.capacity.children.filter(x => x !== this.capacity.children[1])
       this.prices = this.prices.filter(x => x !== this.prices[1])
-    } else if (this.$route.params.room.includes('SignatureRoom')) {
+    } else if (this.$route.params.room.includes('Signature')) {
       this.title = 'Signature Room'
       this.subtitle = 'GREAT FOR SIGNATURE TRIP'
       this.description.title = 'Great choice for a relaxing vacation for families with children or a group of friends.'

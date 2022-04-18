@@ -22,7 +22,7 @@
       <v-col class="d-none d-sm-flex justify-space-between align-center" cols="1" xl="3" lg="4" md="5" sm="8">
 
         <NuxtLink :to="localePath('/')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('index') && position > 0 ? 'active-link-secondary' : this.$route.name.includes('index') ? 'active-link-primary' : ''">
-        {{ link_locales.link_home }}</NuxtLink>
+        {{ $t('navbar.home') }}</NuxtLink>
 
         <v-menu open-on-hover offset-y bottom >
           <template v-slot:activator="{ on, attrs }" >
@@ -32,7 +32,7 @@
                 v-on="on"
                 style="cursor:pointer;"
               >
-                {{ link_locales.link_rooms }}
+                {{ $t('navbar.our_rooms') }}
               </p>
               <i v-bind="attrs"
                 v-on="on" :class="[ position > 0 || route !== 3 ? 'down-arrow-scroll' : 'down-arrow' ]"></i>      
@@ -43,7 +43,7 @@
           <v-list dense>
             <v-list-item dense nuxt>
               <NuxtLink :to="localePath({name: 'rooms'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="$nuxt.$route.name.includes('rooms_') ? 'active-link-secondary' : ''">
-              <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ link_locales.sublink_rooms }}</v-list-item-title>
+              <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ $t('navbar.rooms.rooms') }}</v-list-item-title>
               </NuxtLink>
             </v-list-item>
             <v-list-item
@@ -51,17 +51,17 @@
               :key="i"
             >
             <NuxtLink :to="localePath(`/en/our-rooms/${room.replace(/\s+/g, '')}`)" class="link-scroll" :id="$nuxt.$route.fullPath.includes(room) ? 'active-link-secondary' : ''">
-              <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ room }}</v-list-item-title>
+              <v-list-item-title class="link-scroll" style="font-size:12px; line-height:1rem;">{{ $t(`navbar.rooms.${room}`) }}</v-list-item-title>
             </NuxtLink>
             </v-list-item>
           </v-list>
 
         </v-menu>
 
-        <NuxtLink :to="localePath('/events')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('events') ? 'active-link-secondary': ''">{{ link_locales.link_events }}</NuxtLink>
-        <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ link_locales.link_gallery }}</NuxtLink>
-        <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ link_locales.link_explore }}</NuxtLink>
-        <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ link_locales.link_contact }}</NuxtLink>
+        <NuxtLink :to="localePath('/events')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('events') ? 'active-link-secondary': ''">{{ $t('navbar.events') }}</NuxtLink>
+        <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ $t('navbar.gallery') }}</NuxtLink>
+        <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ $t('navbar.explore') }}</NuxtLink>
+        <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ $t('navbar.contact') }}</NuxtLink>
 
       </v-col>
 
@@ -113,9 +113,7 @@ export default {
       sidebar: false,
       rawLogo,
       route: 3,
-      rooms: [],
-      link_locales: [],
-      roomChildPrefix: '/en/rooms/'
+      rooms: [ 'Superior', 'Deluxe', 'Signature', 'Luxury' ]
     }
   },
   methods: {
@@ -132,24 +130,13 @@ export default {
       this.route = $nuxt.$route.path.length
       this.sidebar = false
       this.$emit("sidebar-navbar", this.sidebar)
-
-      // FETCHING LOCALES FROM STRAPI
-      let navbar_locales = await this.fetchNavbarLocales(this.$store.state.path)
-      this.link_locales = navbar_locales.links
-      this.rooms = navbar_locales.sublinks.slice(1)
-    },
+},
     sidebarComponent(val){
       this.sidebar = val
     },
   },
   async mounted() {
     this.route = $nuxt.$route.path.length
-
-    // FETCHING LOCALES FROM STRAPI
-    let navbar_locales = await this.fetchNavbarLocales(this.$store.state.path)
-    this.link_locales = navbar_locales.links
-    this.rooms = navbar_locales.sublinks.slice(1)
-
   }
 }
 </script>
