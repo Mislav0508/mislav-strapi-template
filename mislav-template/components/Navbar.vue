@@ -58,10 +58,10 @@
 
         </v-menu>
 
-        <NuxtLink :to="localePath('/events')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('events') ? 'active-link-secondary': ''">{{ $t('navbar.events') }}</NuxtLink>
-        <NuxtLink :to="localePath('/gallery')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ $t('navbar.gallery') }}</NuxtLink>
-        <NuxtLink :to="localePath('/explore')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ $t('navbar.explore') }}</NuxtLink>
-        <NuxtLink :to="localePath('/contact')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ $t('navbar.contact') }}</NuxtLink>
+        <NuxtLink :to="localePath({name: 'events'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('events') ? 'active-link-secondary': ''">{{ $t('navbar.events') }}</NuxtLink>
+        <NuxtLink :to="localePath({name: 'gallery'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('gallery') ? 'active-link-secondary': ''">{{ $t('navbar.gallery') }}</NuxtLink>
+        <NuxtLink :to="localePath({name: 'explore'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('explore') ? 'active-link-secondary': ''">{{ $t('navbar.explore') }}</NuxtLink>
+        <NuxtLink :to="localePath({name: 'contact'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ $t('navbar.contact') }}</NuxtLink>
 
       </v-col>
 
@@ -69,7 +69,7 @@
 
       <v-col cols="1" xl="3" lg="1" md="1" sm="2" class="d-flex align-center justify-center mr-md-2">
 
-        <NuxtLink :to="localePath('/login')" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ !this.$store.state.token ? 'Login' : 'Logout' }}</NuxtLink>
+        <NuxtLink :to="localePath({name: 'login'})" :class="[ position > 0 || route !== 3 ? 'link-scroll' : 'link' ]" :id="this.$route.name.includes('contact') ? 'active-link-secondary': ''">{{ !this.$store.state.token ? 'Login' : 'Logout' }}</NuxtLink>
 
         <div role="button" 
         :class="sidebar ? 'menu-btn open ' : 'menu-btn'" 
