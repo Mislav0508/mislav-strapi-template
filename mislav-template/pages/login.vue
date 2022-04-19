@@ -25,6 +25,7 @@
                               name="password"
                               label="Password"
                               type="password"
+                              :rules="passwordRules"
                               v-model="password"
                            ></v-text-field>
                         </v-form>

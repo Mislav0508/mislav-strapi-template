@@ -18,6 +18,10 @@ export default {
       requiredRules: [
         v => !!v || 'this field is required'
       ],
+      passwordRules: [
+        v => !!v || 'this field is required',
+        v => /^[a-zA-Z0-9+@+!]*$/.test(v) || 'Character not allowed.'
+      ]
     }
   }
 }

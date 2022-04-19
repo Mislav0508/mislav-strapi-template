@@ -5,9 +5,7 @@
 
       <v-container class="d-flex align-center flex-column">
         <v-row class="d-flex align-start flex-column">
-          <NuxtLink :to="localePath('/')" class="link-sidebar">{{
-            link_locales.link_home
-          }}</NuxtLink>
+          <NuxtLink :to="localePath('/')" class="link-sidebar">{{ $t('navbar.home') }}</NuxtLink>
 
           <div
             class="d-flex align-start flex-column"
@@ -15,7 +13,7 @@
           >
             <div class="d-flex align-center">
               <p class="link-sidebar py-1" style="cursor: pointer">
-                {{ link_locales.link_rooms }}
+                {{ $t('navbar.our_rooms') }}
               </p>
               <i
                 :class="dropdown ? 'up-arrow-scroll' : 'down-arrow-scroll'"
@@ -30,19 +28,19 @@
                 ref="linksRef"
               >
                 <NuxtLink
-                  :to="localePath('/rooms')"
+                  :to="localePath({name: 'rooms'})"
                   style="text-decoration: none"
                 >
                   <v-list-item-title
                     class="link-sidebar"
                     style="font-size: 15px"
-                    >‣ {{ link_locales.sublink_rooms }}</v-list-item-title
+                    >‣ {{ $t('navbar.rooms.rooms') }}</v-list-item-title
                   >
                 </NuxtLink>
                 <NuxtLink
                   v-for="(room, i) in rooms"
                   :key="i"
-                  :to="localePath(`/rooms/${room.replace(/\s+/g, '')}`)"
+                  :to="localePath(`/en/our-rooms/${room.replace(/\s+/g, '')}`)"
                   class="link-sidebar"
                   style="font-size: 15px"
                 >
@@ -54,13 +52,13 @@
 
           <div class="d-flex justify-center align-start flex-column">
             <NuxtLink :to="localePath('/events')" class="link-sidebar">
-            {{ link_locales.link_events }}</NuxtLink>
+            {{ $t('navbar.events') }}</NuxtLink>
 
-            <NuxtLink :to="localePath('/gallery')" class="link-sidebar">{{ link_locales.link_gallery }}</NuxtLink>
+            <NuxtLink :to="localePath('/gallery')" class="link-sidebar">{{ $t('navbar.gallery') }}</NuxtLink>
 
-            <NuxtLink :to="localePath('/explore')" class="link-sidebar">{{ link_locales.link_explore }}</NuxtLink>
+            <NuxtLink :to="localePath('/explore')" class="link-sidebar">{{ $t('navbar.explore') }}</NuxtLink>
 
-            <NuxtLink :to="localePath('/contact')" class="link-sidebar">{{ link_locales.link_contact }}</NuxtLink>
+            <NuxtLink :to="localePath('/contact')" class="link-sidebar">{{ $t('navbar.contact') }}</NuxtLink>
 
             <NuxtLink :to="localePath('/privacypolicy')" class="link-sidebar"
               >Privacy Policy</NuxtLink
@@ -94,7 +92,7 @@ export default {
   data() {
     return {
       sidebar: false,
-      rooms: [],
+      rooms: [ 'Superior', 'Deluxe', 'Signature', 'Luxury' ],
       link_locales: [],
       dropdown: false,
     };
@@ -105,17 +103,11 @@ export default {
     },
   },
   async mounted() {
-    // FETCHING LOCALES FROM STRAPI
-      let navbar_locales = await this.fetchNavbarLocales(this.$store.state.path)
-      this.link_locales = navbar_locales.links
-      this.rooms = navbar_locales.sublinks.slice(1)
+    
   },
   watch: {
     async $route() {
-      // FETCHING LOCALES FROM STRAPI
-      let navbar_locales = await this.fetchNavbarLocales(this.$store.state.path)
-      this.link_locales = navbar_locales.links
-      this.rooms = navbar_locales.sublinks.slice(1)
+      
     },
     showSidebar(val) {
       this.sidebar = val;
